@@ -1,0 +1,93 @@
+ext {
+
+    android = [
+            applicationId    : "com.leifu.commonlib",      //应用ID
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.0",
+            minSdkVersion    : 21,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+
+    dependVersion = [
+            androidSupportSdkVersion: "28.0.0",
+            retrofitSdkVersion      : "2.3.0",
+            glideSdkVersion         : "4.7.1",
+            rxJava                  : "2.1.5",
+            rxAndroid               : "2.0.1"
+    ]
+
+
+    supportDeps = [
+            //--------  support  -------
+            supportv4    : "com.android.support:support-v4:$dependVersion.androidSupportSdkVersion",
+            appcompatv7  : "com.android.support:appcompat-v7:$dependVersion.androidSupportSdkVersion",
+            recyclerview7: "com.android.support:recyclerview-v7:$dependVersion.androidSupportSdkVersion",
+            cardview     : "com.android.support:cardview-v7:$dependVersion.androidSupportSdkVersion",
+            design       : "com.android.support:design:$dependVersion.androidSupportSdkVersion",
+            annotations  : "com.android.support:support-annotations:$dependVersion.androidSupportSdkVersion"
+    ]
+
+
+    retrofit = [
+            //------ retrofit和RxJava ---------
+            retrofit                : "com.squareup.retrofit2:retrofit:$dependVersion.retrofitSdkVersion",
+            retrofitConverterGson   : "com.squareup.retrofit2:converter-gson:$dependVersion.retrofitSdkVersion",
+            retrofitAdapterRxjava2  : "com.squareup.retrofit2:adapter-rxjava2:$dependVersion.retrofitSdkVersion",
+            okhttp3LoggerInterceptor: "com.squareup.okhttp3:logging-interceptor:3.4.1"
+    ]
+
+    rxJava = [
+            rxJava   : "io.reactivex.rxjava2:rxjava:$dependVersion.rxJava",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:$dependVersion.rxAndroid"
+    ]
+    glide = [
+            glide               : "com.github.bumptech.glide:glide:$dependVersion.glideSdkVersion",
+            glideOkhttp         : "com.github.bumptech.glide:okhttp3-integration:$dependVersion.glideSdkVersion",
+            glideTransformations: "jp.wasabeef:glide-transformations:4.0.1",
+            progressmanager     : "me.jessyan:progressmanager:1.5.0"//上传下载进度
+    ]
+    glideCompiler = "com.github.bumptech.glide:compiler:$dependVersion.glideSdkVersion"
+
+    refresh = [
+            SmartRefreshLayout: "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-32", //刷新布局
+            SmartRefreshHeader: "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-32", //刷新布局头
+    ]
+    other = [
+            //-------------帮助类-------------
+            multidex                     : "com.android.support:multidex:1.0.3",
+            eventbus                     : "org.greenrobot:eventbus:3.1.1",
+            BaseRecyclerViewAdapterHelper: "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.49",//RecyclerViewAdapter帮助类
+            masoulpermission             : "com.qw:soulpermission:1.1.8", //权限
+            utilcode                     : "com.blankj:utilcode:1.25.9",
+            //-------------bugly升级-------------
+            crashreport_upgrade          : "com.tencent.bugly:crashreport_upgrade:latest.release",//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+            nativecrashreport            : "com.tencent.bugly:nativecrashreport:latest.release", //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+
+            //-------------地图-------------
+            map                          : "com.amap.api:3dmap:6.8.0",
+            mapsearch                    : "com.amap.api:search:6.1.0",
+
+            //-------------view-------------
+            FlycoTabLayout_Lib           : "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar",
+            lottie                       : "com.airbnb.android:lottie:2.7.0",//Lottie 2.8.0 and above only supports projects that have been migrated to androidx
+            switchbutton                 : "com.kyleduo.switchbutton:library:2.0.0",
+            seekbar                      : "com.xw.repo:bubbleseekbar:3.20-lite",
+            WheelPicker                  : "cn.aigestudio.wheelpicker:WheelPicker:1.1.3",
+//            xpopup                       : "com.lxj:xpopup:1.8.7",
+            gif_drawable                 : "pl.droidsonroids.gif:android-gif-drawable:1.2.16",
+            twowayview_core              : "org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar",
+            twowayview_layouts           : "org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar",
+    ]
+
+
+    //------ 统一管理 ---------
+    supportLibs = supportDeps.values()
+    retrofitLibs = retrofit.values()
+    rxJavaLibs = rxJava.values()
+    glideLibs = glide.values()
+    refreshLibs = refresh.values()
+    otherLibs = other.values()
+}

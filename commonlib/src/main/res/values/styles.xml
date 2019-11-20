@@ -1,0 +1,75 @@
+<resources>
+
+    <!-- Http 等待Dialog -->
+    <style name="loadingDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/custom_loading_bg</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>  <!-- 半透明 -->
+    </style>
+    <style name="loadingDialogProgressBar">
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:indeterminateDuration">1000</item>
+        <item name="android:minWidth">34dp</item>
+        <item name="android:maxWidth">34dp</item>
+        <item name="android:minHeight">34dp</item>
+        <item name="android:maxHeight">34dp</item>
+    </style>
+    <style name="DialogConfirmCancelStyle" parent="Theme.AppCompat.Dialog">
+        <!-- <item name="android:windowAnimationStyle">@style/AnimTop2</item> -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+    <style name="dialog_bottom_style" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowAnimationStyle">@style/pop_bottom_translate_anim_style</item>
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+    <style name="pop_top_translate_anim_style">
+        <item name="android:windowEnterAnimation">@anim/anim_top_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_top_out</item>
+    </style>
+    <style name="pop_top_scale_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_anim_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_anim_out</item>
+    </style>
+    <style name="pop_bottom_translate_anim_style">
+        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
+    </style>
+    <!--圆形渐变进度-->
+    <declare-styleable name="RoundProgress">
+        <attr name="bgColor" format="color"/>
+        <attr name="roundWidth" format="dimension"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="maxProgress" format="integer"/>
+        <attr name="textIsDisplayable" format="boolean"/>
+        <attr name="lineColor" format="color"/>
+    </declare-styleable>
+</resources>
