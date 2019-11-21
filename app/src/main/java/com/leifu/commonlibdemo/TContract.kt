@@ -2,7 +2,7 @@ package com.leifu.commonlibdemo
 
 import com.leifu.commonlib.base.IBasePresenter
 import com.leifu.commonlib.base.IBaseView
-import com.leifu.commonlib.model.net.response.BaseBean
+import com.leifu.commonlib.net.response.BaseBean
 
 interface TContract {
 

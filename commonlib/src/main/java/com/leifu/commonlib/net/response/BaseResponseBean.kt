@@ -1,4 +1,4 @@
-package com.leifu.commonlib.model.net.response
+package com.leifu.commonlib.net.response
 
 /**
  * 封装返回的数据

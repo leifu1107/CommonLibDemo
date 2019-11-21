@@ -1,7 +1,7 @@
 package com.leifu.commonlibdemo
 
 import com.leifu.commonlib.base.BaseMvpActivity
-import com.leifu.commonlib.model.net.response.BaseBean
+import com.leifu.commonlib.net.response.BaseBean
 
 class TextActivity : BaseMvpActivity<TPresenter>(), TContract.View {
     override fun createPresenter(): TPresenter {

@@ -1,6 +1,6 @@
 package com.leifu.commonlib.net.api
 
-import com.leifu.commonlib.model.net.response.BaseBean
+import com.leifu.commonlib.net.response.BaseBean
 import io.reactivex.Flowable
 import retrofit2.http.GET
 

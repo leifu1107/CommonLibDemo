@@ -1,4 +1,4 @@
-package com.leifu.commonlib.model.net
+package com.leifu.commonlib.net
 
 import android.text.TextUtils
 import com.leifu.commonlib.BaseApplication

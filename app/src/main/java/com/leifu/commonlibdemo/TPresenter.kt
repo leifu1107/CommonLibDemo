@@ -1,11 +1,10 @@
 package com.leifu.commonlibdemo
 
 import com.leifu.commonlib.base.BaseRxPresenter
-import com.leifu.commonlib.model.net.RetrofitManager
-import com.leifu.commonlib.model.net.response.BaseBean
-import com.leifu.commonlib.model.net.response.BaseResponseBean
-import com.leifu.commonlib.model.net.rx.FlowableSubscriberManager
-import com.leifu.commonlib.model.net.rx.RxManage
+import com.leifu.commonlib.net.RetrofitManager
+import com.leifu.commonlib.net.response.BaseBean
+import com.leifu.commonlib.net.rx.FlowableSubscriberManager
+import com.leifu.commonlib.net.rx.RxManage
 
 /**
  *创建人:雷富

@@ -1,12 +1,11 @@
-package com.leifu.commonlib.model.net.rx
+package com.leifu.commonlib.net.rx
 
 
 import com.leifu.commonlib.net.except.ApiException
-import com.leifu.commonlib.model.net.response.BaseBean
+import com.leifu.commonlib.net.response.BaseBean
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
-import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers

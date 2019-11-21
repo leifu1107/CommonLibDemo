@@ -1,4 +1,4 @@
-package com.leifu.commonlib.model.net.rx
+package com.leifu.commonlib.net.rx
 
 
 import com.leifu.commonlib.base.IBaseView

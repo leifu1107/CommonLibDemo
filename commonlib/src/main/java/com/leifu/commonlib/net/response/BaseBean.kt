@@ -1,4 +1,4 @@
-package com.leifu.commonlib.model.net.response
+package com.leifu.commonlib.net.response
 
 import java.io.Serializable
 
