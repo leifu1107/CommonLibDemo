@@ -5,20 +5,98 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'  //kapt3插件
+
+static def releaseTime() {
+    return new Date().format("yyyy_MM_dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    aaptOptions.cruncherEnabled = false//关闭Android Studio的PNG合法性检查的
+    aaptOptions.useNewCruncher = false
+
+    dexOptions {
+        jumboMode true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
-        applicationId "com.leifu.commonlibdemo"
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.android["applicationId"]
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        //版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
+        flavorDimensions "versionCode"
+
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+        //TODO：只保留ABI为:'armeabi-v7a'的so, 'armeabi'已经不支持，'armeabi'的so通常可以直接置于'armeabi-v7a'
+        // 2.arm64-v8a: 第8代、64位ARM处理器，很少设备，三星 Galaxy S6是其中之一。
+        ndk {
+            abiFilters 'armeabi-v7a'//, 'x86',  'x86_64','armeabi', 'arm64-v8a'
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    signingConfigs {
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+            storeFile file('landsky.jks')
+            storePassword '123456'
+            keyAlias 'landsky'
+            keyPassword '123456'
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            // 关闭Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+//            buildConfigField "String", "BASE_URL", "\"http://119.3.49.76:8760/\""
+        }
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+//            buildConfigField "String", "BASE_URL", "\"http://192.168.30.16:8760/\""
+            signingConfig signingConfigs.release
+        }
+    }
+
+
+    /**
+     * 多渠道打包https://www.jianshu.com/p/9bfc4b23b2c0
+     * 1、applicationId      = 软件-包名
+     * 2、app_name           = 资源文件string.xml下的，需要建立不同的res目录
+     * 3、BASE_SERVER_URL    = 基础服务器地址，在自动创建BuildConfig下
+     * 4、APP_File_Provider  = 文件provider，一般是包名+fileprovider命名
+     * 5、其他所需要配置的百度Key，极光推送key，友盟key等等...
+     * */
+    // 自定义输出配置
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${variant.name}-v${variant.versionName}-${releaseTime()}(${variant.versionCode}).apk"
         }
     }
 }
@@ -30,5 +108,23 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //公共库
     implementation project(':commonlib')
+    //内存泄漏
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
+    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+    releaseImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+
+    // 解决support-annotations版本冲突
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '28.0.0'
+                }
+            }
+        }
+    }
 }
