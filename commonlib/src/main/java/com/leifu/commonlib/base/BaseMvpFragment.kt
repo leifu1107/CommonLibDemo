@@ -15,7 +15,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
  *创建时间:2019/6/5 16:16
  *描述:
  */
-abstract class BaseMvpFragment< P : IBasePresenter> : BaseFragment(), IBaseView {
+abstract class BaseMvpFragment<P : IBasePresenter> : BaseFragment(), IBaseView {
 
     var mPresenter: P? = null
 
@@ -35,18 +35,15 @@ abstract class BaseMvpFragment< P : IBasePresenter> : BaseFragment(), IBaseView 
     private var isLoadingMore = false
 
     private var isRefresh = false
-    override fun init(view: View?, savedInstanceState: Bundle?) {
-        super.init(view, savedInstanceState)
-        mPresenter = createPresenter()
-        mPresenter?.attachView(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mPresenter = createPresenter()
+        mPresenter?.attachView(this)
         super.onViewCreated(view, savedInstanceState)
         //多种状态切换的view 重试点击事件 todo setOnClickListener会穿透点击事件
         mLayoutStatusView?.setOnRetryClickListener {
             mLayoutStatusView?.showLoading()
-            lazyLoad()
+            initData()
         }
     }
 
@@ -107,7 +104,6 @@ abstract class BaseMvpFragment< P : IBasePresenter> : BaseFragment(), IBaseView 
      * 显示错误提示
      */
     override fun showErrorMsg(msg: String) {
-//        ToastUtils.showShort(msg)
         ToastUtils.showShort(msg)
     }
 
@@ -115,6 +111,7 @@ abstract class BaseMvpFragment< P : IBasePresenter> : BaseFragment(), IBaseView 
         smartRefreshLayout?.finishRefresh()
         smartRefreshLayout?.finishLoadMore()
     }
+
     /**
      * 刷新和加载更多
      */
@@ -124,22 +121,17 @@ abstract class BaseMvpFragment< P : IBasePresenter> : BaseFragment(), IBaseView 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 isLoadingMore = true
                 currentPage++
-                lazyLoad()
+                initData()
             }
 
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 isRefresh = true
                 currentPage = 1
-                lazyLoad()
+                initData()
             }
         })
     }
 
-    override fun showReLogin() {
-//        SpUtil.removeUseData()
-//        startActivity(Intent(mActivity, LoginActivity::class.java))
-//        ActivityManager.instance.finishWithOutActivity(LoginActivity::class.java)
-    }
     /**
      * 请求网络数据
      */

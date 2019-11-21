@@ -1,6 +1,7 @@
 package com.leifu.commonlib.net.except
 
 import com.google.gson.JsonParseException
+import com.leifu.commonlib.base.BaseActivity
 import com.leifu.commonlib.base.IBaseView
 import com.leifu.commonlib.util.LogUtil
 import org.json.JSONException
@@ -21,9 +22,9 @@ class ExceptionHandle {
         fun handleException(e: Throwable, mView: IBaseView?): String {
             e.printStackTrace()
             if (e is ApiException) {
-                errorMsg = e.msg.toString()
-                if (e.msg == "token timeout") {
-                    mView?.showReLogin()
+                errorMsg = e.errorMsg.toString()
+                if (e.errorCode == 0) {
+                    (mView as BaseActivity).onLogin()
                 }
             } else if (e is HttpException) {
                 //可以处理一些退出登录逻辑,可以自己修改

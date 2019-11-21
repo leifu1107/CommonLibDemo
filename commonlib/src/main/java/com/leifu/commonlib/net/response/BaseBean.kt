@@ -7,7 +7,6 @@ import java.io.Serializable
  * {"code":200,"msg":"成功!","data":{"appId":"com.chat.peakchao","appkey":"00d91e8e0cca2b76f515926a36db68f5"}}
  */
 open class BaseBean : Serializable {
-    var success: Boolean = false
-    var message: String? = null
-    var timeout: Boolean = false
+    var errorCode: Int = 0
+    var errorMsg: String? = null
 }

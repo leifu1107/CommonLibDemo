@@ -21,17 +21,6 @@ import io.reactivex.schedulers.Schedulers
  *只有在需要处理背压问题时，才需要使用Flowable。
  */
 object RxManage {
-    /**
-     * compose简化线程切换
-     * @param <T>
-     * @return
-    </T> */
-    fun <T> rxSchedulerObservableHelper(): ObservableTransformer<T, T> {
-        return ObservableTransformer { observable ->
-            observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        }
-    }
 
     /**
      * compose简化线程切换
@@ -50,62 +39,20 @@ object RxManage {
      * @param <T>
      * @return
     </T> */
-//    fun <T> handleObservableResult(): ObservableTransformer<T, T> {
-//        return ObservableTransformer { observable ->
-//            observable.flatMap(Function<T, Observable<T>> { bean ->
-//                val baseBean = bean as BaseBean
-//                if (baseBean.code == 200) {//{"code":200,"msg":"成功!","data":{"appId":"com.chat.peakchao","appkey":"00d91e8e0cca2b76f515926a36db68f5"}}
-//                    createObservable(bean)
-//                } else {
-//                    Observable.error(ApiException(baseBean.code, baseBean.msg))
-//                }
-//            })
-//        }
-//    }
-
-    /**
-     *compose判断结果,统一返回结果处理,支持背压
-     * @param <T>
-     * @return
-    </T> */
     fun <T> handleFlowableResult(): FlowableTransformer<T, T> {
         return FlowableTransformer { flowable ->
             flowable.flatMap(Function<T, Flowable<T>> { bean ->
                 val baseBean = bean as BaseBean
-                if (baseBean.success) {
+                if (baseBean.errorCode == 1) {
                     createFlowable(bean)
                 } else {
-                    Flowable.error(ApiException(baseBean.success, baseBean.message))
+                    Flowable.error(ApiException(baseBean.errorCode, baseBean.errorMsg))
                 }
             })
         }
     }
 
-    /**
-     *compose判断结果,统一返回结果处理,支持背压
-     * @param <T>
-     * @return
-    </T> */
-    fun <T> handleFlowableResult2(): FlowableTransformer<T, T> {
-        return FlowableTransformer { flowable ->
-            flowable.flatMap(Function<T, Flowable<T>> { bean ->
-                val baseBean = bean as BaseBean
-                if (baseBean.timeout) {
-                    Flowable.error(ApiException(baseBean.success, baseBean.message))
-                } else {
-                    createFlowable(bean)
-                }
-            })
-        }
-    }
 
-    fun <T> handleFlowableResult3(): FlowableTransformer<T, T> {
-        return FlowableTransformer { flowable ->
-            flowable.flatMap(Function<T, Flowable<T>> { bean ->
-                createFlowable(bean)
-            })
-        }
-    }
     /**
      *不通过继承,通过泛型实现实体类
      * @param <T>
@@ -123,21 +70,6 @@ object RxManage {
 //        }
 //    }
 
-    /**
-     * 生成Observable,不支持背压
-     * @param <T>
-     * @return
-    </T> */
-//    private fun <T> createObservable(t: T): Observable<T> {
-//        return Observable.create { emitter ->
-//            try {
-//                emitter.onNext(t)
-//                emitter.onComplete()
-//            } catch (e: Exception) {
-//                emitter.onError(e)
-//            }
-//        }
-//    }
 
     /**
      * 生成Flowable,支持背压

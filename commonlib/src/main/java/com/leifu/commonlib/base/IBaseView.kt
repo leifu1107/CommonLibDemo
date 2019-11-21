@@ -42,9 +42,6 @@ interface IBaseView {
      */
     fun finishRefreshAndLoadMore()
 
-    /**
-     * 显示重新登录
-     */
-    fun showReLogin()
+
 
 }

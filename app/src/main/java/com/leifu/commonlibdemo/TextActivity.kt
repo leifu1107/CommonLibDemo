@@ -17,7 +17,7 @@ class TextActivity : BaseMvpActivity<TPresenter>(), TContract.View {
     }
 
     override fun initData() {
-        mPresenter?.getObjectData()
+        //mPresenter?.getObjectData()
     }
 
     override fun showObjectData(bean: BaseBean) {

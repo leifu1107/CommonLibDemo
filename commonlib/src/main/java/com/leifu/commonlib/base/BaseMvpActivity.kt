@@ -32,13 +32,10 @@ abstract class BaseMvpActivity<P : IBasePresenter> : BaseActivity(), IBaseView {
     private var isLoadingMore = false
 
     private var isRefresh = false
-    override fun initView(savedInstanceState: Bundle?) {
-        super.initView(savedInstanceState)
-        mPresenter = createPresenter()
-        mPresenter?.attachView(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        mPresenter = createPresenter()
+        mPresenter?.attachView(this)
         super.onCreate(savedInstanceState)
         //多种状态切换的view 重试点击事件
         mLayoutStatusView?.setOnRetryClickListener {
@@ -60,7 +57,6 @@ abstract class BaseMvpActivity<P : IBasePresenter> : BaseActivity(), IBaseView {
      * 加载中
      */
     override fun showLoading() {
-//        mLayoutStatusView?.showLoading() ?:
         if (mActivity == null || mActivity.isDestroyed || mActivity.isFinishing) {
             return
         }
@@ -129,13 +125,6 @@ abstract class BaseMvpActivity<P : IBasePresenter> : BaseActivity(), IBaseView {
                 loadData()
             }
         })
-    }
-
-    override fun showReLogin() {
-//        SpUtil.removeUseData()
-//        ReflectUtils.reflect(LoginActivity)
-//        startActivity(Intent(mActivity, LoginActivity::class.java))
-//        ActivityManager.instance.finishWithOutActivity(LoginActivity::class.java)
     }
 
     /**
