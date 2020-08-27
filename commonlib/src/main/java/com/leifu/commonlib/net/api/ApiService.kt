@@ -17,21 +17,4 @@ interface ApiService {
      */
     @GET("https://wanandroid.com/wxarticle/chapters/json")
     fun getTData(): Flowable<BaseBean>
-//    /**
-//     * 登录
-//     * @param map
-//     * @return
-//     */
-//    @FormUrlEncoded
-//    @POST("rbac/login-nd")
-//    fun getLogin(@FieldMap map: HashMap<String, String>): Flowable<LoginBean>
-//
-//    /**
-//     * 获取用户信息
-//     * @param map
-//     * @return
-//     */
-//    @GET("rbac/user/getCurrent")
-//    fun getMyInfo(@QueryMap map: HashMap<String, String>): Flowable<MyInfoBean>
-
 }

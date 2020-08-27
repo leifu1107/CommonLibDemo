@@ -2,11 +2,12 @@ package com.leifu.commonlibdemo
 
 import com.leifu.commonlib.base.BaseMvpActivity
 import com.leifu.commonlib.net.response.BaseBean
+import com.leifu.commonlib.util.LogUtil
 
 class TextActivity : BaseMvpActivity<TPresenter>(), TContract.View {
-    override fun createPresenter(): TPresenter {
-        return TPresenter()
-    }
+//    override fun createPresenter(): TPresenter {
+//        return TPresenter()
+//    }
 
     override fun loadData() {
     }
@@ -17,7 +18,8 @@ class TextActivity : BaseMvpActivity<TPresenter>(), TContract.View {
     }
 
     override fun initData() {
-        //mPresenter?.getObjectData()
+        LogUtil.e("请求数据开始")
+//        mPresenter?.getObjectData()
     }
 
     override fun showObjectData(bean: BaseBean) {

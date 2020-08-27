@@ -59,7 +59,7 @@ abstract class BaseActivity : AppCompatActivity(), IBase {
 //        SpUtil.removeUseData()
         val any = ReflectUtils.reflect(applicationInfo.processName + ".TextActivity").get<Class<Any>>()
         startActivity(Intent(mActivity, any))
-        ActivityManager.instance.finishWithOutActivity(any)
+//        ActivityManager.instance.finishWithOutActivity(any)
     }
 
     /**

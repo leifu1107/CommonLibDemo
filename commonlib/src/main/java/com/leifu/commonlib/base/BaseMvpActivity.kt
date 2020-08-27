@@ -7,6 +7,7 @@ import com.leifu.commonlib.view.dialog.LoadingUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import java.lang.reflect.ParameterizedType
 
 /**
  *创建人:雷富
@@ -16,14 +17,17 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 abstract class BaseMvpActivity<P : IBasePresenter> : BaseActivity(), IBaseView {
 
     var mPresenter: P? = null
+
     /**
      * 多种状态的 View 的切换
      */
     var mLayoutStatusView: MultipleStatusView? = null
+
     /**
      * 刷新布局
      */
     var smartRefreshLayout: SmartRefreshLayout? = null
+
     /**
      * 多种状态的 View 的切换
      */
@@ -34,7 +38,7 @@ abstract class BaseMvpActivity<P : IBasePresenter> : BaseActivity(), IBaseView {
     private var isRefresh = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mPresenter = createPresenter()
+        createPresenter()
         mPresenter?.attachView(this)
         super.onCreate(savedInstanceState)
         //多种状态切换的view 重试点击事件
@@ -135,5 +139,14 @@ abstract class BaseMvpActivity<P : IBasePresenter> : BaseActivity(), IBaseView {
     /**
      * 创建Presenter
      */
-    abstract fun createPresenter(): P
+//    abstract fun createPresenter(): P
+    @Suppress("UNCHECKED_CAST")
+    private fun createPresenter() {
+        val type = javaClass.genericSuperclass
+        if (type is ParameterizedType) {
+            val tp = type.actualTypeArguments[0] as? Class<P> ?: IBasePresenter::class.java
+            mPresenter = tp.newInstance() as P
+        }
+    }
+
 }

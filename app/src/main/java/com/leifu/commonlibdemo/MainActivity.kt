@@ -13,7 +13,7 @@ class MainActivity : BaseActivity() {
 
     override fun initData() {
         mBtnJump.setOnClickListener {
-            //            startActivity(Intent(this, TextActivity::class.java))
+//            startActivity(Intent(this, TextActivity::class.java))
             onLogin()
         }
     }
