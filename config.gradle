@@ -1,7 +1,7 @@
 ext {
 
     android = [
-            applicationId    : "com.leifu.commonlib.demo",      //应用ID
+            applicationId    : "com.leifu.commonlibdemo",      //应用ID
             compileSdkVersion: 28,
             buildToolsVersion: "28.0.0",
             minSdkVersion    : 21,

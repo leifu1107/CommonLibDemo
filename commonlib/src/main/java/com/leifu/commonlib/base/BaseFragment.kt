@@ -52,10 +52,6 @@ abstract class BaseFragment : Fragment(), IBase {
     }
 
 
-    override fun onHiddenChanged(hidden: Boolean) {//单个fragment
-        super.onHiddenChanged(hidden)
-    }
-
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {//结合viewpager
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {

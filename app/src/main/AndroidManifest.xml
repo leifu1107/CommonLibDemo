@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.leifu.commonlibdemo.TextActivity" />
+        <activity android:name=".TextActivity" />
+        <activity android:name=".ThreeActivity" />
     </application>
 
 </manifest>

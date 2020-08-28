@@ -2,15 +2,12 @@ package com.leifu.commonlib.base
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ReflectUtils
 import com.leifu.commonlib.net.response.EventBean
-import com.leifu.commonlib.util.ActivityManager
+import com.leifu.commonlib.util.LogUtil
 import com.leifu.commonlib.view.titlebar.StatusBarUtil
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -23,6 +20,7 @@ import org.greenrobot.eventbus.ThreadMode
  *描述:
  */
 abstract class BaseActivity : AppCompatActivity(), IBase {
+
     lateinit var mContext: Context
     lateinit var mActivity: Activity
 
@@ -30,7 +28,6 @@ abstract class BaseActivity : AppCompatActivity(), IBase {
         super.onCreate(savedInstanceState)
         mContext = this.applicationContext
         mActivity = this
-        ActivityManager.instance.addActivity(this)
         EventBus.getDefault().register(this)
         //状态栏透明
         StatusBarUtil.setStatusBarFullTransparent(this)
@@ -44,11 +41,8 @@ abstract class BaseActivity : AppCompatActivity(), IBase {
     /**
      *设置中心title和返回监听
      */
-    open fun setTitleText(title: String, rightBtnVisible: Boolean) {
+    open fun setTitleText(title: String) {
         centerTitle.text = title
-        if (rightBtnVisible) {
-            btnRight.visibility = View.VISIBLE
-        }
         btnBack.setOnClickListener { finish() }
     }
 
@@ -57,9 +51,11 @@ abstract class BaseActivity : AppCompatActivity(), IBase {
      */
     override fun onLogin() {
 //        SpUtil.removeUseData()
-        val any = ReflectUtils.reflect(applicationInfo.processName + ".TextActivity").get<Class<Any>>()
-        startActivity(Intent(mActivity, any))
-//        ActivityManager.instance.finishWithOutActivity(any)
+        //todo 注意目录级别和包名等
+        val any = ReflectUtils.reflect(applicationInfo.processName + ".TextActivity")
+            .get<Class<Activity>>()
+        ActivityUtils.startActivity(any)
+//        ActivityUtils.finishOtherActivities(any)
     }
 
     /**
@@ -67,8 +63,10 @@ abstract class BaseActivity : AppCompatActivity(), IBase {
      */
     override fun onDestroy() {
         super.onDestroy()
-        ActivityManager.instance.removeActivity(this)
         EventBus.getDefault().unregister(this)
+
+        LogUtil.e("onDestroy")
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

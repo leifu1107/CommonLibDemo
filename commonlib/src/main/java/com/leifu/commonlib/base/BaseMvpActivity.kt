@@ -139,7 +139,6 @@ abstract class BaseMvpActivity<P : IBasePresenter> : BaseActivity(), IBaseView {
     /**
      * 创建Presenter
      */
-//    abstract fun createPresenter(): P
     @Suppress("UNCHECKED_CAST")
     private fun createPresenter() {
         val type = javaClass.genericSuperclass

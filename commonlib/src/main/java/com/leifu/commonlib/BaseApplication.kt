@@ -3,6 +3,7 @@ package com.leifu.commonlib
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
+import com.blankj.utilcode.util.Utils
 import kotlin.properties.Delegates
 
 
@@ -25,10 +26,13 @@ open class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        Utils.init(this)//工具类初始化,activity生命周期监听等
         initConfig()
     }
 
+
     private fun initConfig() {
     }
+
 
 }
