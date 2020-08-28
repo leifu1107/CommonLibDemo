@@ -16,5 +16,5 @@ interface ApiService {
      * 创建应用接口
      */
     @GET("https://wanandroid.com/wxarticle/chapters/json")
-    fun getTData(): Flowable<BaseBean>
+    fun getData(): Flowable<BaseBean>
 }

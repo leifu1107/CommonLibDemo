@@ -21,19 +21,21 @@ import org.greenrobot.eventbus.ThreadMode
  */
 abstract class BaseActivity : AppCompatActivity(), IBase {
 
-    lateinit var mContext: Context
     lateinit var mActivity: Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mContext = this.applicationContext
+        //获取activity
         mActivity = this
+        //订阅事件
         EventBus.getDefault().register(this)
         //状态栏透明
         StatusBarUtil.setStatusBarFullTransparent(this)
         //状态栏白色字体图标
         StatusBarUtil.setStatusBarDarkMode(this)
+        //设置布局
         setContentView(getLayoutId())
+        //初始化数据
         initData()
     }
 
@@ -51,11 +53,9 @@ abstract class BaseActivity : AppCompatActivity(), IBase {
      */
     override fun onLogin() {
 //        SpUtil.removeUseData()
-        //todo 注意目录级别和包名等
-        val any = ReflectUtils.reflect(applicationInfo.processName + ".TextActivity")
-            .get<Class<Activity>>()
-        ActivityUtils.startActivity(any)
-//        ActivityUtils.finishOtherActivities(any)
+        //todo 注意目录级别和包名等 (完整包名)
+//        val any = ReflectUtils.reflect(applicationInfo.processName + ".LoginActivity").get<Class<Activity>>()
+//        ActivityUtils.startActivity(any)
     }
 
     /**
@@ -64,9 +64,6 @@ abstract class BaseActivity : AppCompatActivity(), IBase {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
-
-        LogUtil.e("onDestroy")
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

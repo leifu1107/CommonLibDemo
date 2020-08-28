@@ -11,18 +11,18 @@ import com.leifu.commonlib.net.rx.RxManage
  *创建时间:2019/6/6 13:57
  *描述:
  */
-class TPresenter : BaseRxPresenter<TContract.View>(), TContract.Presenter {
+class MainPresenter : BaseRxPresenter<MainContract.View>(), MainContract.Presenter {
 
-    override fun getObjectData() {
+    override fun getData() {
         addSubscription(
-            RetrofitManager.apiService.getTData()
+            RetrofitManager.apiService.getData()
                 .compose(RxManage.rxSchedulerFlowableHelper())
                 .compose(RxManage.handleFlowableResult<BaseBean>())
                 .subscribeWith(
                     object : FlowableSubscriberManager<BaseBean>(mView, true) {
                         override fun onNext(t: BaseBean) {
                             super.onNext(t)
-                            this@TPresenter.mView?.showObjectData(t)
+                            this@MainPresenter.mView?.showData(t)
                         }
                     })
         )

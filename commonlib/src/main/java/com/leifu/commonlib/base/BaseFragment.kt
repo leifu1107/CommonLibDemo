@@ -27,14 +27,12 @@ abstract class BaseFragment : Fragment(), IBase {
      */
     private var hasLoadData = false
 
-    lateinit var mContext: Context
     lateinit var mActivity: Activity
     lateinit var mView: View
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mActivity = context as Activity
-        mContext = context
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

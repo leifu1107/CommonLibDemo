@@ -4,13 +4,13 @@ import com.leifu.commonlib.base.IBasePresenter
 import com.leifu.commonlib.base.IBaseView
 import com.leifu.commonlib.net.response.BaseBean
 
-interface TContract {
+interface MainContract {
 
     interface View : IBaseView {
         /**
          * 显示创建应用接口
          */
-        fun showObjectData(bean: BaseBean)
+        fun showData(bean: BaseBean)
 
     }
 
@@ -18,6 +18,6 @@ interface TContract {
         /**
          * 获取创建应用接口
          */
-        fun getObjectData()
+        fun getData()
     }
 }
