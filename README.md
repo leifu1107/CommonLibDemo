@@ -1,5 +1,4 @@
-# CommonLibDemo
-kotlin公共库
+<span style="color: green"> Some green text </span>
 
 #### :pig: :dog: :cat: 使用kotlin+rxjava2+retrofit对MVP架构做了进一步简化,特别是使用泛型实例化减少每次在Activity中Presenter的创建,同时使用反射跳转登录页面
 
