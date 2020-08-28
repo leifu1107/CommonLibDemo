@@ -3,7 +3,7 @@ kotlin公共库
 
 使用kotlin对MVP架构做了进一步简化,特别是使用泛型实例化减少每次在Activity中Presenter的创建,同时使用反射跳转登录页面
 
-...java
+```java
 
 class MainActivity : BaseMvpActivity<MainPresenter>(), MainContract.View {
 
@@ -15,4 +15,4 @@ class MainActivity : BaseMvpActivity<MainPresenter>(), MainContract.View {
  override fun getLayoutId(): Int = R.layout.activity_main
 }
 
-...
+```
